@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uniform Shop | Berinba P&C Association</title>
+  <meta name="description" content="Berinba Public School uniform shop — available items, sizes, prices and opening hours." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .item-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .item-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    .item-card-header {
+      background: linear-gradient(135deg, var(--green-pale), var(--border));
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      font-size: 3.5rem;
+    }
+    .item-card-body { padding: 1.25rem 1.5rem 1.5rem; }
+    .item-card-body h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 0.25rem;
+    }
+    .item-category {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .item-price {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--green);
+      margin-bottom: 0.5rem;
+    }
+    .size-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.5rem; }
+    .size-tag {
+      display: inline-block;
+      background: var(--green-pale);
+      color: var(--green-dark);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    .size-tag.out {
+      background: #f5f5f5;
+      color: #aaa;
+      border-color: #e0e0e0;
+      text-decoration: line-through;
+    }
+    .open-times {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+    .open-time-block {
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .open-time-block .day {
+      font-weight: 700;
+      color: var(--green-dark);
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+    .open-time-block .time {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .open-time-block.closed .day { color: var(--text-muted); }
+    .open-badge {
+      display: inline-block;
+      background: #d4edda;
+      color: #155724;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      margin-bottom: 0.4rem;
+    }
+    .steps { list-style: none; counter-reset: steps; }
+    .steps li {
+      counter-increment: steps;
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      align-items: flex-start;
+    }
+    .steps li::before {
+      content: counter(steps);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      height: 32px;
+      background: var(--green);
+      color: var(--white);
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .steps li span { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">🌿</div>
+      <div class="nav-logo-text">
+        <strong>Berinba P&C</strong>
+        <span>Berinba Public School</span>
+      </div>
+    </a>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="committee.html">Committee</a></li>
+      <li><a href="canteen.html">Canteen</a></li>
+      <li><a href="uniform.html" class="active">Uniform Shop</a></li>
+      <li><a href="events.html">Events</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>👕 Uniform Shop</h1>
+  <p>Quality school uniforms available every Wednesday morning — run by our P&C volunteers.</p>
+</div>
+
+<main>
+
+  <!-- Opening Hours -->
+  <section class="section">
+    <p class="section-label">Opening Hours</p>
+    <h2 class="section-title">When We're Open</h2>
+    <p class="section-intro">The uniform shop operates during school terms. Closed during school holidays.</p>
+
+    <div class="open-times">
+      <div class="open-time-block closed"><div class="day">Monday</div><div class="time">Closed</div></div>
+      <div class="open-time-block closed"><div class="day">Tuesday</div><div class="time">Closed</div></div>
+      <div class="open-time-block">
+        <div class="open-badge">Open</div>
+        <div class="day">Wednesday</div>
+        <div class="time">8:30am – 9:00am</div>
+      </div>
+      <div class="open-time-block closed"><div class="day">Thursday</div><div class="time">Closed</div></div>
+      <div class="open-time-block closed"><div class="day">Friday</div><div class="time">Closed</div></div>
+    </div>
+
+    <div class="notice" style="margin-top: 1.5rem;">
+      <span>📬</span>
+      <span>Can't make it on Wednesday? Email <strong>pandc@berinbaps.com.au</strong> to arrange a special pickup, or orders can be placed through the school office.</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Summer Uniform -->
+  <section class="section">
+    <p class="section-label">Summer Uniform</p>
+    <h2 class="section-title">Summer Items</h2>
+    <p class="section-intro">Terms 1 and 4. Bottle green and white — the colours of Berinba!</p>
+
+    <div class="card-grid">
+      <div class="item-card">
+        <div class="item-card-header">👕</div>
+        <div class="item-card-body">
+          <div class="item-category">Tops — Summer</div>
+          <h3>Green Polo Shirt</h3>
+          <div class="item-price">$18.00</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Bottle green short-sleeve polo with school emblem.</p>
+          <div class="size-tags">
+            <span class="size-tag">4</span>
+            <span class="size-tag">6</span>
+            <span class="size-tag">8</span>
+            <span class="size-tag">10</span>
+            <span class="size-tag">12</span>
+            <span class="size-tag">14</span>
+            <span class="size-tag">16</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <div class="item-card-header">👗</div>
+        <div class="item-card-body">
+          <div class="item-category">Bottoms — Girls</div>
+          <h3>Green Checked Dress</h3>
+          <div class="item-price">$28.00</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Classic green and white checked cotton dress.</p>
+          <div class="size-tags">
+            <span class="size-tag">4</span>
+            <span class="size-tag">6</span>
+            <span class="size-tag">8</span>
+            <span class="size-tag">10</span>
+            <span class="size-tag">12</span>
+            <span class="size-tag out">14</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <div class="item-card-header">🩳</div>
+        <div class="item-card-body">
+          <div class="item-category">Bottoms — Boys</div>
+          <h3>Green Shorts</h3>
+          <div class="item-price">$18.00</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Bottle green drill shorts with elastic waist.</p>
+          <div class="size-tags">
+            <span class="size-tag">4</span>
+            <span class="size-tag">6</span>
+            <span class="size-tag">8</span>
+            <span class="size-tag">10</span>
+            <span class="size-tag">12</span>
+            <span class="size-tag">14</span>
+            <span class="size-tag">16</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <div class="item-card-header">🧢</div>
+        <div class="item-card-body">
+          <div class="item-category">Accessories</div>
+          <h3>Bucket Hat</h3>
+          <div class="item-price">$14.00</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Green and white bucket hat. Sun protection compulsory Term 1 & 4.</p>
+          <div class="size-tags">
+            <span class="size-tag">S/M</span>
+            <span class="size-tag">M/L</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Winter Uniform -->
+  <section class="section">
+    <p class="section-label">Winter Uniform</p>
+    <h2 class="section-title">Winter Items</h2>
+    <p class="section-intro">Terms 2 and 3. Keep warm in Berinba's chilly Yass winters!</p>
+
+    <div class="card-grid">
+      <div class="item-card">
+        <div class="item-card-header">🧥</div>
+        <div class="item-card-body">
+          <div class="item-category">Tops — Winter</div>
+          <h3>School Jumper (Fleecy)</h3>
+          <div class="item-price">$32.00</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Bottle green fleecy jumper with school emblem on chest.</p>
+          <div class="size-tags">
+            <span class="size-tag">4</span>
+            <span class="size-tag">6</span>
+            <span class="size-tag">8</span>
+            <span class="size-tag">10</span>
+            <span class="size-tag">12</span>
+            <span class="size-tag">14</span>
+            <span class="size-tag">16</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <div class="item-card-header">🧣</div>
+        <div class="item-card-body">
+          <div class="item-category">Tops — Winter</div>
+          <h3>School Jacket (Zip)</h3>
+          <div class="item-price">$38.00</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Green full-zip softshell jacket with embroidered school logo.</p>
+          <div class="size-tags">
+            <span class="size-tag">6</span>
+            <span class="size-tag">8</span>
+            <span class="size-tag">10</span>
+            <span class="size-tag out">12</span>
+            <span class="size-tag">14</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <div class="item-card-header">👖</div>
+        <div class="item-card-body">
+          <div class="item-category">Bottoms — Winter</div>
+          <h3>Tracksuit Pants</h3>
+          <div class="item-price">$24.00</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Bottle green track pants with elasticated waist and ankle.</p>
+          <div class="size-tags">
+            <span class="size-tag">4</span>
+            <span class="size-tag">6</span>
+            <span class="size-tag">8</span>
+            <span class="size-tag">10</span>
+            <span class="size-tag">12</span>
+            <span class="size-tag">14</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <div class="item-card-header">🧤</div>
+        <div class="item-card-body">
+          <div class="item-category">Accessories</div>
+          <h3>Beanie</h3>
+          <div class="item-price">$12.00</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Green and white striped beanie with Berinba logo. One size fits most.</p>
+          <div class="size-tags">
+            <span class="size-tag">One Size</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sport Uniform -->
+  <section class="section">
+    <p class="section-label">Sport</p>
+    <h2 class="section-title">Sport Uniform</h2>
+    <div class="card-grid">
+      <div class="item-card">
+        <div class="item-card-header">🏃</div>
+        <div class="item-card-body">
+          <div class="item-category">Sport — All Seasons</div>
+          <h3>Sports Shirt (House Colours)</h3>
+          <div class="item-price">$16.00</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Available in house colours: Red, Blue, Yellow, Green.</p>
+          <div class="size-tags">
+            <span class="size-tag">6</span>
+            <span class="size-tag">8</span>
+            <span class="size-tag">10</span>
+            <span class="size-tag">12</span>
+            <span class="size-tag">14</span>
+          </div>
+        </div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-header">🩳</div>
+        <div class="item-card-body">
+          <div class="item-category">Sport — All Seasons</div>
+          <h3>Sports Shorts</h3>
+          <div class="item-price">$16.00</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Black sports shorts suitable for all school sport activities.</p>
+          <div class="size-tags">
+            <span class="size-tag">6</span>
+            <span class="size-tag">8</span>
+            <span class="size-tag">10</span>
+            <span class="size-tag">12</span>
+            <span class="size-tag">14</span>
+            <span class="size-tag">16</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notice" style="margin-top: 1.5rem;">
+      <span>🏷️</span>
+      <span>Sizes marked <span style="text-decoration: line-through; color: #aaa; font-weight: 600;">like this</span> are currently out of stock. Contact us to be added to the waitlist.</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Second Hand -->
+  <section class="section">
+    <p class="section-label">Save Money</p>
+    <h2 class="section-title">Second-Hand Uniforms</h2>
+    <div class="info-row">
+      <div class="info-block">
+        <h2>♻️ Pre-Loved Uniforms</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1rem;">
+          We stock a selection of quality second-hand uniforms sold at a fraction of the original price. All items are clean and in good condition.
+        </p>
+        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.75;">
+          Second-hand items are available on a first-come, first-served basis at the Wednesday morning uniform shop opening.
+        </p>
+      </div>
+      <div class="info-block">
+        <h2>📦 Donate Outgrown Uniforms</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1rem;">
+          Has your child outgrown their uniform? Please donate clean, good-condition items to the uniform shop — another family will thank you!
+        </p>
+        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.75;">
+          Drop donations into the <strong>labelled donation box</strong> at the school office at any time.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <p class="section-label">Help</p>
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="info-block">
+      <h2>❓ Payment Methods</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">We accept <strong>cash and card</strong> at the Wednesday morning shop. Exact change is appreciated for cash transactions.</p>
+      <h2 style="margin-top: 1.5rem;">❓ Can I Try Before I Buy?</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">Yes! We have fitting samples at the shop. If a size doesn't fit, items in original condition can be exchanged within 30 days.</p>
+      <h2 style="margin-top: 1.5rem;">❓ What if the Shop is Closed?</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">Email us at <strong>pandc@berinbaps.com.au</strong> or ask at the school office. We can usually arrange to have items available for pickup.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Berinba P&C</h4>
+      <p>Berinba Public School<br>Yass NSW 2582</p>
+      <p style="margin-top: 0.75rem;">pandc@berinbaps.com.au</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="committee.html">Committee Members</a>
+      <a href="canteen.html">School Canteen</a>
+      <a href="uniform.html">Uniform Shop</a>
+      <a href="events.html">Events</a>
+    </div>
+    <div class="footer-col">
+      <h4>School</h4>
+      <a href="https://berinba-p.schools.nsw.gov.au" target="_blank" rel="noopener">Berinba Public School Website</a>
+      <p style="margin-top: 0.5rem;">Principal: [Principal Name]</p>
+      <p>Phone: (02) 6226 XXXX</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Berinba Parents & Citizens Association</span>
+    <span>Berinba Public School · Yass NSW</span>
+  </div>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  const nav = document.getElementById('navLinks');
+  const btn = document.querySelector('.nav-hamburger');
+  if (!nav.contains(e.target) && !btn.contains(e.target)) nav.classList.remove('open');
+});
+</script>
+</body>
+</html>

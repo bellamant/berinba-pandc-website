@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School Canteen | Berinba P&C Association</title>
+  <meta name="description" content="Berinba Public School canteen — menus, ordering, opening days and volunteering." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .menu-section { margin-bottom: 2rem; }
+    .menu-section h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--green-pale);
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+      gap: 1rem;
+    }
+    .menu-item:last-child { border-bottom: none; }
+    .menu-item-name { color: var(--text); }
+    .menu-item-price {
+      font-weight: 700;
+      color: var(--green);
+      white-space: nowrap;
+    }
+    .menu-item-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: block;
+    }
+    .day-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--green);
+      color: var(--white);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: 100px;
+      margin: 0.25rem;
+    }
+    .allergen-badge {
+      display: inline-block;
+      background: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffc107;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      margin-left: 0.35rem;
+    }
+    .healthy-badge {
+      display: inline-block;
+      background: var(--green-pale);
+      color: var(--green);
+      border: 1px solid var(--green);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      margin-left: 0.35rem;
+    }
+    .steps { list-style: none; counter-reset: steps; }
+    .steps li {
+      counter-increment: steps;
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      align-items: flex-start;
+    }
+    .steps li::before {
+      content: counter(steps);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      height: 32px;
+      background: var(--green);
+      color: var(--white);
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .steps li span { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">🌿</div>
+      <div class="nav-logo-text">
+        <strong>Berinba P&C</strong>
+        <span>Berinba Public School</span>
+      </div>
+    </a>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="committee.html">Committee</a></li>
+      <li><a href="canteen.html" class="active">Canteen</a></li>
+      <li><a href="uniform.html">Uniform Shop</a></li>
+      <li><a href="events.html">Events</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>🥪 School Canteen</h1>
+  <p>Fresh, affordable food prepared with care by our wonderful parent volunteers.</p>
+</div>
+
+<main>
+
+  <!-- Overview -->
+  <section class="section">
+    <div class="info-row">
+      <div class="info-block">
+        <h2>📆 Canteen Days</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">The canteen operates on the following days each week:</p>
+        <div>
+          <span class="day-badge">📅 Tuesday</span>
+          <span class="day-badge">📅 Thursday</span>
+          <span class="day-badge">📅 Friday</span>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 1rem;">
+          Orders must be placed <strong>before 9:00am</strong> on canteen days. Late orders cannot be accepted.
+        </p>
+      </div>
+
+      <div class="info-block">
+        <h2>🕗 Order Times</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Session</th><th>Time</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Orders open (morning)</td><td>8:00am – 9:00am</td></tr>
+              <tr><td>Recess snacks delivered</td><td>10:30am</td></tr>
+              <tr><td>Lunch delivered to class</td><td>1:05pm</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- How to Order -->
+  <section class="section">
+    <p class="section-label">Ordering</p>
+    <h2 class="section-title">How to Place an Order</h2>
+    <div class="info-row">
+      <div class="info-block">
+        <h2>✉️ Lunch Bag Method</h2>
+        <ol class="steps">
+          <li><span>Write your child's <strong>name</strong>, <strong>class</strong>, and each item clearly on a brown paper bag.</span></li>
+          <li><span>Place the correct <strong>money inside the bag</strong> — exact change appreciated.</span></li>
+          <li><span>Hand the bag to your child's teacher or drop it in the <strong>canteen box</strong> at the office before 9:00am.</span></li>
+          <li><span>Lunch will be delivered to your child's classroom at <strong>1:05pm</strong>.</span></li>
+        </ol>
+      </div>
+      <div class="info-block">
+        <h2>📱 Online Ordering</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">
+          Online ordering is available through <strong>Flexischools</strong>. Orders must be placed by <strong>8:30am</strong> on canteen days.
+        </p>
+        <a href="#" class="btn btn-green" style="display: inline-flex; margin-bottom: 0.75rem;">Visit Flexischools ↗</a>
+        <p style="color: var(--text-muted); font-size: 0.85rem;">
+          New to Flexischools? Ask at the school office for a registration flyer, or email us for help getting set up.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Menu -->
+  <section class="section">
+    <p class="section-label">Term 2 2026</p>
+    <h2 class="section-title">Canteen Menu</h2>
+    <p class="section-intro">All items are prepared fresh on-site. Prices are GST-free.</p>
+
+    <div class="info-row">
+      <!-- Mains -->
+      <div class="info-block">
+        <div class="menu-section">
+          <h3>🥗 Mains — Lunch</h3>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Ham & Cheese Roll</span>
+              <span class="menu-item-note">Freshly baked roll with leg ham and tasty cheese <span class="healthy-badge">Everyday</span></span>
+            </div>
+            <span class="menu-item-price">$3.50</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Vegemite & Cheese Roll</span>
+              <span class="menu-item-note">Vegetarian option <span class="healthy-badge">Everyday</span></span>
+            </div>
+            <span class="menu-item-price">$2.50</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Cheese & Salad Wrap</span>
+              <span class="menu-item-note">Wholegrain wrap with seasonal salad <span class="healthy-badge">Everyday</span></span>
+            </div>
+            <span class="menu-item-price">$4.00</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Meat Pie</span>
+              <span class="menu-item-note">Warmed, served with sauce</span>
+            </div>
+            <span class="menu-item-price">$3.50</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Sausage Roll</span>
+              <span class="menu-item-note">Served with tomato sauce</span>
+            </div>
+            <span class="menu-item-price">$2.50</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Pasta Bolognaise</span>
+              <span class="menu-item-note">Friday special only <span class="allergen-badge">Contains gluten</span></span>
+            </div>
+            <span class="menu-item-price">$4.50</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Fried Rice (Vegetarian)</span>
+              <span class="menu-item-note">Thursday special <span class="healthy-badge">Everyday</span></span>
+            </div>
+            <span class="menu-item-price">$4.00</span>
+          </div>
+        </div>
+
+        <div class="menu-section">
+          <h3>🍎 Recess Snacks</h3>
+          <div class="menu-item">
+            <span class="menu-item-name">Fruit cup (seasonal)</span>
+            <span class="menu-item-price">$2.00</span>
+          </div>
+          <div class="menu-item">
+            <span class="menu-item-name">Cheese & crackers</span>
+            <span class="menu-item-price">$2.00</span>
+          </div>
+          <div class="menu-item">
+            <span class="menu-item-name">Popcorn (plain)</span>
+            <span class="menu-item-price">$1.50</span>
+          </div>
+          <div class="menu-item">
+            <span class="menu-item-name">Yoghurt cup</span>
+            <span class="menu-item-price">$2.00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drinks & Extras -->
+      <div class="info-block">
+        <div class="menu-section">
+          <h3>🥤 Drinks</h3>
+          <div class="menu-item">
+            <span class="menu-item-name">Water (600ml)</span>
+            <span class="menu-item-price">$1.00</span>
+          </div>
+          <div class="menu-item">
+            <span class="menu-item-name">Flavoured Milk (Up&Go)</span>
+            <span class="menu-item-price">$2.00</span>
+          </div>
+          <div class="menu-item">
+            <span class="menu-item-name">Juice Box (apple or orange)</span>
+            <span class="menu-item-price">$1.50</span>
+          </div>
+        </div>
+
+        <div class="menu-section">
+          <h3>🍦 Treats (select days)</h3>
+          <div class="menu-item">
+            <span class="menu-item-name">Zooper Dooper</span>
+            <span class="menu-item-price">$0.50</span>
+          </div>
+          <div class="menu-item">
+            <span class="menu-item-name">Ice Cream (drumstick)</span>
+            <span class="menu-item-price">$2.00</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Friday Cupcake</span>
+              <span class="menu-item-note">Baked by canteen volunteers — limited stock!</span>
+            </div>
+            <span class="menu-item-price">$1.50</span>
+          </div>
+        </div>
+
+        <div class="notice" style="margin-top: 1rem;">
+          <span>⚠️</span>
+          <div>
+            <strong>Allergy notice:</strong> Our canteen handles products containing gluten, dairy, eggs, and tree nuts. If your child has a food allergy or intolerance, please contact us before ordering at <strong>pandc@berinbaps.com.au</strong>.
+          </div>
+        </div>
+        <div class="notice">
+          <span>📋</span>
+          <div>
+            Menu is reviewed each term. Items and prices subject to change. <strong>Everyday foods</strong> meet the NSW Healthy School Canteen Strategy guidelines.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Volunteering -->
+  <section class="section">
+    <p class="section-label">Get Involved</p>
+    <h2 class="section-title">Volunteer at the Canteen</h2>
+    <p class="section-intro">Our canteen runs entirely on parent volunteers. Even one session a term helps enormously.</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-img-placeholder">⏰</div>
+        <div class="card-body">
+          <h3>Shift Times</h3>
+          <p>Canteen volunteers are needed from <strong>8:30am to 1:30pm</strong> on canteen days. You're welcome to stay for only part of the shift if that suits you better.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-placeholder">🎓</div>
+        <div class="card-body">
+          <h3>Training Provided</h3>
+          <p>No experience needed! Our canteen coordinator will walk you through everything. NSW Food Safety basics are covered in a short induction.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-placeholder">📋</div>
+        <div class="card-body">
+          <h3>Working With Children Check</h3>
+          <p>All canteen volunteers must hold a current NSW Working With Children Check (WWCC). It's free for volunteers — apply at <a href="https://www.service.nsw.gov.au" target="_blank">service.nsw.gov.au</a>.</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 1.5rem;">
+      <a href="mailto:pandc@berinbaps.com.au?subject=Canteen Volunteer" class="btn btn-green">Register to Volunteer</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Berinba P&C</h4>
+      <p>Berinba Public School<br>Yass NSW 2582</p>
+      <p style="margin-top: 0.75rem;">pandc@berinbaps.com.au</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="committee.html">Committee Members</a>
+      <a href="canteen.html">School Canteen</a>
+      <a href="uniform.html">Uniform Shop</a>
+      <a href="events.html">Events</a>
+    </div>
+    <div class="footer-col">
+      <h4>School</h4>
+      <a href="https://berinba-p.schools.nsw.gov.au" target="_blank" rel="noopener">Berinba Public School Website</a>
+      <p style="margin-top: 0.5rem;">Principal: [Principal Name]</p>
+      <p>Phone: (02) 6226 XXXX</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Berinba Parents & Citizens Association</span>
+    <span>Berinba Public School · Yass NSW</span>
+  </div>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  const nav = document.getElementById('navLinks');
+  const btn = document.querySelector('.nav-hamburger');
+  if (!nav.contains(e.target) && !btn.contains(e.target)) nav.classList.remove('open');
+});
+</script>
+</body>
+</html>

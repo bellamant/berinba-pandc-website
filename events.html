@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Events | Berinba P&C Association</title>
+  <meta name="description" content="Upcoming events, fundraisers, and community activities at Berinba Public School." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .filter-btn {
+      padding: 0.45rem 1rem;
+      border-radius: 100px;
+      border: 2px solid var(--border);
+      background: var(--white);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      border-color: var(--green);
+      background: var(--green);
+      color: var(--white);
+    }
+    .event-card-full {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.75rem;
+      display: flex;
+      gap: 1.75rem;
+      align-items: flex-start;
+      border: 1px solid var(--border);
+      transition: transform var(--transition), box-shadow var(--transition);
+      margin-bottom: 1rem;
+    }
+    .event-card-full:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+    .event-date-box-lg {
+      background: var(--green);
+      color: var(--white);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      text-align: center;
+      min-width: 72px;
+      flex-shrink: 0;
+    }
+    .event-date-box-lg .day {
+      display: block;
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .event-date-box-lg .month {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+    .event-date-box-lg .year {
+      display: block;
+      font-size: 0.72rem;
+      opacity: 0.7;
+      margin-top: 0.15rem;
+    }
+    .event-details { flex: 1; min-width: 0; }
+    .event-details h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 0.4rem;
+    }
+    .event-details p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 0.75rem;
+    }
+    .event-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .event-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+    .tag-meeting { background: #e8f4fd; color: #1a5276; }
+    .tag-fundraiser { background: #fef9e7; color: #7d6608; }
+    .tag-community { background: #e9f7ef; color: #1e8449; }
+    .tag-school { background: #f5eef8; color: #6c3483; }
+    .past-event { opacity: 0.6; }
+    .past-event .event-date-box-lg { background: var(--text-muted); }
+    .term-header {
+      background: var(--green);
+      color: var(--white);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin: 2rem 0 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .term-header span { opacity: 0.8; font-weight: 400; font-size: 0.85rem; }
+    @media (max-width: 500px) {
+      .event-card-full { flex-direction: column; gap: 1rem; }
+      .event-date-box-lg { display: flex; gap: 0.75rem; align-items: center; padding: 0.75rem 1rem; }
+      .event-date-box-lg .day { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">🌿</div>
+      <div class="nav-logo-text">
+        <strong>Berinba P&C</strong>
+        <span>Berinba Public School</span>
+      </div>
+    </a>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="committee.html">Committee</a></li>
+      <li><a href="canteen.html">Canteen</a></li>
+      <li><a href="uniform.html">Uniform Shop</a></li>
+      <li><a href="events.html" class="active">Events</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>📅 Events</h1>
+  <p>All the P&C events, fundraisers, and community activities at Berinba — in one place.</p>
+</div>
+
+<main>
+
+  <!-- Filters -->
+  <section class="section">
+    <p class="section-label">Browse</p>
+    <h2 class="section-title">2026 Events Calendar</h2>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterEvents('all', this)">All Events</button>
+      <button class="filter-btn" onclick="filterEvents('meeting', this)">📋 Meetings</button>
+      <button class="filter-btn" onclick="filterEvents('fundraiser', this)">💰 Fundraisers</button>
+      <button class="filter-btn" onclick="filterEvents('community', this)">🎉 Community</button>
+      <button class="filter-btn" onclick="filterEvents('school', this)">🏫 School</button>
+    </div>
+
+    <!-- Term 2 -->
+    <div class="term-header">
+      Term 2 — 28 April to 4 July 2026
+      <span>Weeks 1–10</span>
+    </div>
+
+    <div id="events-list">
+
+      <div class="event-card-full" data-category="meeting">
+        <div class="event-date-box-lg">
+          <span class="day">6</span>
+          <span class="month">May</span>
+          <span class="year">2026</span>
+        </div>
+        <div class="event-details">
+          <h3>P&C General Meeting <span class="event-tag tag-meeting">Meeting</span></h3>
+          <p>Monthly P&C meeting open to all parents and community members. Agenda will include Term 2 canteen review, Fun Run planning update, uniform shop stock, and general business. Refreshments provided.</p>
+          <div class="event-meta-row">
+            <span>🕡 6:30pm – 8:00pm</span>
+            <span>📍 School Library</span>
+            <span>👥 All welcome · No RSVP required</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card-full" data-category="fundraiser">
+        <div class="event-date-box-lg">
+          <span class="day">9</span>
+          <span class="month">May</span>
+          <span class="year">2026</span>
+        </div>
+        <div class="event-details">
+          <h3>Mother's Day Stall <span class="event-tag tag-fundraiser">Fundraiser</span></h3>
+          <p>Students visit the stall before school to select a gift for a special person in their life. Gifts are beautifully wrapped and ready to take home. All items are priced so students can buy with a gold coin or small amount of pocket money.</p>
+          <div class="event-meta-row">
+            <span>🕗 8:30am – 9:00am</span>
+            <span>📍 School Hall (Undercover Area)</span>
+            <span>💰 Items from $2–$8</span>
+          </div>
+          <div class="notice">
+            <span>📝</span>
+            <span>Volunteers needed! Email <strong>pandc@berinbaps.com.au</strong> to help set up and run the stall.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card-full" data-category="community">
+        <div class="event-date-box-lg">
+          <span class="day">23</span>
+          <span class="month">May</span>
+          <span class="year">2026</span>
+        </div>
+        <div class="event-details">
+          <h3>School Fun Run 2026 <span class="event-tag tag-community">Community</span></h3>
+          <p>Our major Term 2 fundraiser! All students are encouraged to collect sponsorships and run as many laps as they can around the oval. Prizes for top fundraisers and top runners in each year group. Fancy dress welcome!</p>
+          <div class="event-meta-row">
+            <span>🕙 10:00am – 11:30am</span>
+            <span>📍 School Oval</span>
+            <span>👧👦 All students</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">
+            Sponsorship forms available from the school office from Week 2. Funds raised go towards new playground equipment for the junior school.
+          </p>
+        </div>
+      </div>
+
+      <div class="event-card-full" data-category="school">
+        <div class="event-date-box-lg">
+          <span class="day">3</span>
+          <span class="month">Jun</span>
+          <span class="year">2026</span>
+        </div>
+        <div class="event-details">
+          <h3>P&C General Meeting <span class="event-tag tag-meeting">Meeting</span></h3>
+          <p>June P&C meeting. Agenda to include Fun Run debrief and funds raised, Term 3 planning, and any other business. All welcome!</p>
+          <div class="event-meta-row">
+            <span>🕡 6:30pm – 8:00pm</span>
+            <span>📍 School Library</span>
+            <span>👥 All welcome</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card-full" data-category="fundraiser">
+        <div class="event-date-box-lg">
+          <span class="day">11</span>
+          <span class="month">Jun</span>
+          <span class="year">2026</span>
+        </div>
+        <div class="event-details">
+          <h3>Scholastic Book Fair <span class="event-tag tag-fundraiser">Fundraiser</span></h3>
+          <p>The Scholastic Book Fair returns for Term 2! Students can browse and purchase books during lunch breaks throughout the week. A wonderful opportunity to foster a love of reading.</p>
+          <div class="event-meta-row">
+            <span>📅 11–13 June (3 days)</span>
+            <span>📍 School Library</span>
+            <span>🕐 Recess & Lunch breaks</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Term 3 -->
+      <div class="term-header">
+        Term 3 — 21 July to 25 September 2026
+        <span>Weeks 1–10</span>
+      </div>
+
+      <div class="event-card-full" data-category="meeting">
+        <div class="event-date-box-lg">
+          <span class="day">4</span>
+          <span class="month">Aug</span>
+          <span class="year">2026</span>
+        </div>
+        <div class="event-details">
+          <h3>P&C General Meeting <span class="event-tag tag-meeting">Meeting</span></h3>
+          <p>First meeting of Term 3. Agenda to include playground equipment update, Term 4 planning, and school report.</p>
+          <div class="event-meta-row">
+            <span>🕡 6:30pm – 8:00pm</span>
+            <span>📍 School Library</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card-full" data-category="community">
+        <div class="event-date-box-lg">
+          <span class="day">29</span>
+          <span class="month">Aug</span>
+          <span class="year">2026</span>
+        </div>
+        <div class="event-details">
+          <h3>Berinba Community Disco <span class="event-tag tag-community">Community</span></h3>
+          <p>Our annual school disco! Infants and Primary students enjoy a great evening of music, dancing, and fun. DJ, glow sticks, and a tuck shop on the night.</p>
+          <div class="event-meta-row">
+            <span>🕔 K–2: 4:30pm–5:30pm</span>
+            <span>🕔 3–6: 6:00pm–7:30pm</span>
+            <span>📍 School Hall</span>
+            <span>💰 $5 entry</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card-full" data-category="community">
+        <div class="event-date-box-lg">
+          <span class="day">12</span>
+          <span class="month">Sep</span>
+          <span class="year">2026</span>
+        </div>
+        <div class="event-details">
+          <h3>Fathers' Day Stall <span class="event-tag tag-community">Community</span></h3>
+          <p>Students choose a gift for a special person before school. All items wrapped and ready to go. Volunteers needed — please get in touch!</p>
+          <div class="event-meta-row">
+            <span>🕗 8:30am – 9:00am</span>
+            <span>📍 School Hall</span>
+            <span>💰 Items from $2–$8</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Term 4 -->
+      <div class="term-header">
+        Term 4 — 13 October to 18 December 2026
+        <span>Weeks 1–10</span>
+      </div>
+
+      <div class="event-card-full" data-category="meeting">
+        <div class="event-date-box-lg">
+          <span class="day">6</span>
+          <span class="month">Oct</span>
+          <span class="year">2026</span>
+        </div>
+        <div class="event-details">
+          <h3>P&C General Meeting <span class="event-tag tag-meeting">Meeting</span></h3>
+          <p>First meeting of Term 4. Election of 2027 executive committee. All members welcome to nominate for a role!</p>
+          <div class="event-meta-row">
+            <span>🕡 6:30pm – 8:00pm</span>
+            <span>📍 School Library</span>
+            <span>⭐ AGM — Committee Elections</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card-full" data-category="community">
+        <div class="event-date-box-lg">
+          <span class="day">11</span>
+          <span class="month">Dec</span>
+          <span class="year">2026</span>
+        </div>
+        <div class="event-details">
+          <h3>End of Year Celebration 🎉 <span class="event-tag tag-community">Community</span></h3>
+          <p>Our annual celebration of another wonderful year at Berinba! Presentations, awards, performances, and a BBQ run by the P&C. Everyone is welcome — bring a chair and enjoy the afternoon.</p>
+          <div class="event-meta-row">
+            <span>🕔 4:00pm – 7:00pm</span>
+            <span>📍 School Grounds</span>
+            <span>🌭 BBQ from 4:30pm</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end events-list -->
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Submit an event -->
+  <section class="section">
+    <p class="section-label">Stay Informed</p>
+    <h2 class="section-title">Get Event Updates</h2>
+    <div class="info-row">
+      <div class="info-block">
+        <h2>📬 School Newsletter</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.75;">
+          All P&C events are listed in the weekly school newsletter, sent every Friday via the school's communication app. Make sure you're registered with the school office to receive it.
+        </p>
+      </div>
+      <div class="info-block">
+        <h2>📢 Suggest an Event</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1rem;">
+          Got an idea for a community event or fundraiser? Bring it to the next P&C meeting, or get in touch with the committee directly.
+        </p>
+        <a href="mailto:pandc@berinbaps.com.au?subject=Event Suggestion" class="btn btn-green">Contact the P&C</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Berinba P&C</h4>
+      <p>Berinba Public School<br>Yass NSW 2582</p>
+      <p style="margin-top: 0.75rem;">pandc@berinbaps.com.au</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="committee.html">Committee Members</a>
+      <a href="canteen.html">School Canteen</a>
+      <a href="uniform.html">Uniform Shop</a>
+      <a href="events.html">Events</a>
+    </div>
+    <div class="footer-col">
+      <h4>School</h4>
+      <a href="https://berinba-p.schools.nsw.gov.au" target="_blank" rel="noopener">Berinba Public School Website</a>
+      <p style="margin-top: 0.5rem;">Principal: [Principal Name]</p>
+      <p>Phone: (02) 6226 XXXX</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Berinba Parents & Citizens Association</span>
+    <span>Berinba Public School · Yass NSW</span>
+  </div>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  const nav = document.getElementById('navLinks');
+  const btn = document.querySelector('.nav-hamburger');
+  if (!nav.contains(e.target) && !btn.contains(e.target)) nav.classList.remove('open');
+});
+
+function filterEvents(category, btn) {
+  // Update buttons
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Filter cards
+  const cards = document.querySelectorAll('[data-category]');
+  cards.forEach(card => {
+    if (category === 'all' || card.dataset.category === category) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+</body>
+</html>
