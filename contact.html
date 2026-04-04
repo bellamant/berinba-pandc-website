@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | Berinba P&C Association</title>
+  <meta name="description" content="Get in touch with the Berinba P&C Association — contact us or volunteer to get involved with your school community." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .form-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+    .form-group label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--green-dark);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.65rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-main);
+      font-size: 0.95rem;
+      color: var(--text);
+      background: var(--off-white);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(26, 92, 42, 0.12);
+      background: var(--white);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+    .form-submit {
+      margin-top: 1.25rem;
+    }
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.93rem;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .checkbox-label input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--green);
+      cursor: pointer;
+    }
+    .success-banner {
+      display: none;
+      background: var(--green-pale);
+      border: 1px solid var(--green);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      color: var(--green-dark);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">🌿</div>
+      <div class="nav-logo-text">
+        <strong>Berinba P&C</strong>
+        <span>Berinba Public School</span>
+      </div>
+    </a>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="committee.html">Committee</a></li>
+      <li><a href="canteen.html">Canteen</a></li>
+      <li><a href="uniform.html">Uniform Shop</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ===== PAGE HEADER ===== -->
+<section class="hero" style="padding: 3rem 1.5rem;">
+  <div class="hero-badge">Get Involved · Reach Out</div>
+  <h1 style="font-size: clamp(1.8rem, 4vw, 2.6rem);">Contact Us &<br><span>Volunteer</span></h1>
+  <p>We'd love to hear from you — whether you have a question, want to volunteer, or just want to say hello.</p>
+</section>
+
+<!-- ===== MAIN ===== -->
+<main>
+  <section class="section">
+    <div class="info-row">
+
+      <!-- FORM -->
+      <div>
+        <p class="section-label">Send a Message</p>
+        <h2 class="section-title" style="margin-bottom: 1.25rem;">Get in Touch</h2>
+
+        <div id="successBanner" class="success-banner">
+          ✅ Thanks! Your message has been sent. We'll be in touch soon.
+        </div>
+
+        <!--
+          FORMSPREE SETUP INSTRUCTIONS:
+          1. Go to https://formspree.io and sign up for a free account
+          2. Create a new form and copy your form ID (looks like "xyzabcde")
+          3. Replace "YOUR_FORM_ID" in the action below with your actual form ID
+          4. Example: action="https://formspree.io/f/xyzabcde"
+        -->
+        <form class="form-card" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="contactForm">
+          <input type="hidden" name="_subject" value="New message from Berinba P&C website" />
+          <input type="text" name="_gotcha" style="display:none" />
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="firstName">First Name *</label>
+              <input type="text" id="firstName" name="firstName" required placeholder="Jane" />
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name *</label>
+              <input type="text" id="lastName" name="lastName" required placeholder="Smith" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" required placeholder="jane@example.com" />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number (optional)</label>
+              <input type="tel" id="phone" name="phone" placeholder="0400 000 000" />
+            </div>
+            <div class="form-group full-width">
+              <label for="reason">Reason for Contact *</label>
+              <select id="reason" name="reason" required>
+                <option value="" disabled selected>Select a reason…</option>
+                <option value="volunteer">I'd like to volunteer</option>
+                <option value="canteen">Canteen enquiry</option>
+                <option value="uniform">Uniform shop enquiry</option>
+                <option value="events">Events &amp; fundraising</option>
+                <option value="meeting">P&C meeting information</option>
+                <option value="general">General enquiry</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <!-- Volunteer interests — shown when "volunteer" is selected -->
+            <div class="form-group full-width" id="volunteerSection" style="display: none;">
+              <label>I'm interested in helping with… (tick all that apply)</label>
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="volunteer[]" value="canteen" /> Canteen rostering
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="volunteer[]" value="uniform" /> Uniform shop
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="volunteer[]" value="events" /> Events &amp; stalls
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="volunteer[]" value="fundraising" /> Fundraising
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="volunteer[]" value="committee" /> Joining the committee
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="volunteer[]" value="other" /> Something else (describe below)
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="message">Message *</label>
+              <textarea id="message" name="message" required placeholder="Tell us how we can help, or a bit about yourself if you'd like to volunteer…"></textarea>
+            </div>
+          </div>
+
+          <div class="form-submit">
+            <button type="submit" class="btn btn-green">Send Message ✉️</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- CONTACT INFO SIDEBAR -->
+      <div>
+        <p class="section-label">Other Ways to Reach Us</p>
+        <h2 class="section-title" style="margin-bottom: 1.25rem;">Contact Details</h2>
+
+        <div class="info-block" style="margin-bottom: 1rem;">
+          <h2>📬 Email</h2>
+          <p style="font-size: 1rem; font-weight: 600; color: var(--green-dark);">pandc@berinbaps.com.au</p>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 0.4rem;">We aim to reply within 2–3 school days.</p>
+        </div>
+
+        <div class="info-block" style="margin-bottom: 1rem;">
+          <h2>📅 P&C Meetings</h2>
+          <p style="font-size: 0.95rem; color: var(--text-muted);">Meetings are held each term, usually on Tuesday evenings at <strong>6:30pm in the School Library</strong>. All parents and community members are welcome — no membership required.</p>
+        </div>
+
+        <div class="info-block" style="margin-bottom: 1rem;">
+          <h2>🏫 Find Us</h2>
+          <p style="font-size: 0.95rem; color: var(--text-muted);">Berinba Public School<br>Yass NSW 2582</p>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.4rem;">You can also speak to any committee member at the school gate on any school morning.</p>
+        </div>
+
+        <div class="notice">
+          <span>🙋</span>
+          <span>Volunteers are the heart of our P&C. Whether you have an hour a term or one day a week — every bit of help makes a difference!</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Berinba P&C</h4>
+      <p>Berinba Public School<br>Yass NSW 2582</p>
+      <p style="margin-top: 0.75rem;">pandc@berinbaps.com.au</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="committee.html">Committee Members</a>
+      <a href="canteen.html">School Canteen</a>
+      <a href="uniform.html">Uniform Shop</a>
+      <a href="events.html">Events</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>School</h4>
+      <a href="https://berinba-p.schools.nsw.gov.au" target="_blank" rel="noopener">Berinba Public School Website</a>
+      <p style="margin-top: 0.5rem;">Principal: [Principal Name]</p>
+      <p>Phone: (02) 6226 XXXX</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Berinba Parents & Citizens Association</span>
+    <span>Berinba Public School · Yass NSW</span>
+  </div>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+document.addEventListener('click', function(e) {
+  const nav = document.getElementById('navLinks');
+  const btn = document.querySelector('.nav-hamburger');
+  if (!nav.contains(e.target) && !btn.contains(e.target)) {
+    nav.classList.remove('open');
+  }
+});
+
+// Show/hide volunteer checkboxes based on dropdown selection
+document.getElementById('reason').addEventListener('change', function() {
+  const volunteerSection = document.getElementById('volunteerSection');
+  volunteerSection.style.display = this.value === 'volunteer' ? 'block' : 'none';
+});
+
+// Handle successful Formspree submission
+const form = document.getElementById('contactForm');
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const data = new FormData(form);
+  const response = await fetch(form.action, {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  });
+  if (response.ok) {
+    form.reset();
+    document.getElementById('volunteerSection').style.display = 'none';
+    document.getElementById('successBanner').style.display = 'block';
+    window.scrollTo({ top: document.getElementById('successBanner').offsetTop - 100, behavior: 'smooth' });
+  } else {
+    alert('Something went wrong. Please email us directly at pandc@berinbaps.com.au');
+  }
+});
+</script>
+</body>
+</html>
